@@ -4,12 +4,32 @@ import Image from "next/image";
 import { useMemo, useState } from "react";
 import { filterCategories, projects } from "../../data";
 
+// Define the Project type based on your project object structure
+type Project = {
+  title: string;
+  description: string;
+  image: string;
+  longDescription: string;
+  github?: string;
+  live?: string;
+  featured?: boolean;
+  category: string;
+  year: string | number;
+  status: string;
+  technologies: string[];
+  stats: {
+    stars: number;
+    forks: number;
+    views: number;
+  };
+};
+
 type ProjectProps = {
   isDarkMode: boolean;
 };
 
 const Projects = ({ isDarkMode }: ProjectProps) => {
-  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [projectFilter, setProjectFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const filterProjects = useMemo(() => {
@@ -142,6 +162,7 @@ const Projects = ({ isDarkMode }: ProjectProps) => {
                     <motion.button
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.9 }}
+                      // @type-ignore
                       onClick={() => setSelectedProject(project)}
                       className="p-2 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-white/30 transition-colors"
                     >
@@ -262,7 +283,7 @@ const Projects = ({ isDarkMode }: ProjectProps) => {
                 {/* Project Image */}
                 <div className="aspect-video">
                   <Image
-                    src={selectedProject?.image}
+                    src={selectedProject?.image || ""}
                     alt={selectedProject?.title}
                     height={300}
                     width={500}
