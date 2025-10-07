@@ -355,8 +355,8 @@ const Contact = ({ isDarkMode }: ContactProps) => {
                       <>
                         <CheckCircle className="w-5 h-5" />
                         <span>
-                          Thank you! Your message has been sent successfully.
-                          I'll get back to you soon!
+                          {`Thank you! Your message has been sent successfully.
+                          I'll get back to you soon!`}
                         </span>
                       </>
                     ) : (
